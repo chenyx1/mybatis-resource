@@ -54,6 +54,11 @@ public class MapperMethod {
     this.method = new MethodSignature(config, mapperInterface, method);
   }
 
+  /**
+   * @desc 拦截mapping接口的目标方法。
+   *       交给指定执行器执行sql语句
+   * @date 2020-01-06
+   * */
   public Object execute(SqlSession sqlSession, Object[] args) {
     Object result;
     switch (command.getType()) {

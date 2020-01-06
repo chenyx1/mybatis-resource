@@ -295,6 +295,10 @@ public class MapperAnnotationBuilder {
     return null;
   }
 
+  /**
+   * @desc 解析sql语句对应的statement
+   * @date 2020-01-06
+   * */
   void parseStatement(Method method) {
     Class<?> parameterTypeClass = getParameterType(method);
     LanguageDriver languageDriver = getLanguageDriver(method);

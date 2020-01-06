@@ -76,12 +76,14 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
     lookupConstructor = lookup;
   }
 
+  //动态代理实现方法，
   @Override
   public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
     try {
       if (Object.class.equals(method.getDeclaringClass())) {
         return method.invoke(this, args);
       } else {
+        //mapping目标方法调用
         return cachedInvoker(proxy, method, args).invoke(proxy, method, args, sqlSession);
       }
     } catch (Throwable t) {

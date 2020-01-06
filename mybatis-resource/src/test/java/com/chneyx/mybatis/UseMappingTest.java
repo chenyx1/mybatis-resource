@@ -67,6 +67,33 @@ public class UseMappingTest {
         SqlSession sqlSession = sessionFactory.openSession();
         //获取mapping
         // List<User> users = sqlSession.selectList("com.chenyx.mybatis.data.UserMapper.selectAll");
-        sqlSession.update("com.chenyx.mybatis.data.UserMapper.selectAll.updateByPrimaryKeySelective",1);
+        User user = new User();
+        user.setId(1);
+        user.setAge(34);
+        //update操作会清空缓存
+        sqlSession.update("com.chenyx.mybatis.data.UserMapper.updateByPrimaryKeySelective",user);
+        sqlSession.commit();
+    }
+
+
+
+    @Test
+    public void insertUser() throws Exception{
+        Reader reader =  Resources.getResourceAsReader("mybatisConfig.xml");
+        //定义sqlsessionFactory
+        //主要解析mybaitConfig.xml文件
+        //生产sqlsessionFactory对应
+        SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        //configuration-->mybatis配置文件
+        //executor-->mybatis执行sql语句的执行器，不同的执行器。使用方式不一样
+        //autoCommit-->是否指定提交
+        SqlSession sqlSession = sessionFactory.openSession();
+        //获取mapping
+        // List<User> users = sqlSession.selectList("com.chenyx.mybatis.data.UserMapper.selectAll");
+        User user = new User();
+        user.setAge(34);
+        //底层实现是通过update实现
+        sqlSession.insert("com.chenyx.mybatis.data.UserMapper.insert",user);
+        sqlSession.commit();
     }
 }
