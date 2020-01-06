@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--设置configuration配置-->
+<configuration>
+    <!--自定义属性-->
+    <!--properties的resource或url 属性用于引用外部的properties属性-->
+    <properties>
+        <property name="username" value="root"/>
+        <property name="password" value="xiaopei"/>
+    </properties>
+    <!--环境配置，连接的数据库，这里使用的是MySQL-->
+    <!--default指定具体的环境变量-->
+    <environments default="mysql">
+        <environment id="mysql">
+            <!--指定事务管理的类型，这里简单使用Java的JDBC的提交和回滚设置-->
+            <transactionManager type="JDBC"></transactionManager>
+
+            <!--dataSource 指连接源配置，POOLED是JDBC连接对象的数据源连接池的实现-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"></property>
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/study"></property>
+                <property name="username" value="${username}"></property>
+                <property name="password" value="${password}"></property>
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <!--mybatis 配置信息-->
+   <!-- <settings>
+        &lt;!&ndash;开启二级缓存&ndash;&gt;
+        <setting name="cacheEnabled" value="true"/>
+    </settings>-->
+    <mappers>
+        <!--mapping.xml文件-->
+        <mapper resource="mapping/UserMapper.xml"></mapper>
+    </mappers>
+</configuration>
