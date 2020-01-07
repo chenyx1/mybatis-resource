@@ -141,6 +141,11 @@ public class MapperProxy<T> implements InvocationHandler, Serializable {
       this.mapperMethod = mapperMethod;
     }
 
+    /**
+     * @desc 拦截mapping接口的目标方法。
+     *       交给指定执行器执行sql语句
+     * @date 2020-01-06
+     * */
     @Override
     public Object invoke(Object proxy, Method method, Object[] args, SqlSession sqlSession) throws Throwable {
       return mapperMethod.execute(sqlSession, args);
