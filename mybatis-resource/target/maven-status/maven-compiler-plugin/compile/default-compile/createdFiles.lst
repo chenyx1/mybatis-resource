@@ -1,1 +1,4 @@
-com\chneyx\mybatis\App.class
+com\chenyx\mybatis\data\entity\User.class
+com\chenyx\mybatis\data\interceptor\StatementHandler1Plugin.class
+com\chenyx\mybatis\data\interceptor\StatementHandlerPlugin.class
+com\chenyx\mybatis\data\UserMapper.class

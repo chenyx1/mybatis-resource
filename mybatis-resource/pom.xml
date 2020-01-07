@@ -49,6 +49,12 @@
       <artifactId>javassist</artifactId>
       <version>3.24.1-GA</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+      <version>5.1.11</version>
+    </dependency>
   </dependencies>
 
 <build>
