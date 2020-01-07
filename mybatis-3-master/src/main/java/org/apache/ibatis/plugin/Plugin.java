@@ -40,11 +40,18 @@ public class Plugin implements InvocationHandler {
     this.signatureMap = signatureMap;
   }
 
+  /**
+   * @desc 通过动态代理增强插件
+   * @date 2020-01-07
+   * */
   public static Object wrap(Object target, Interceptor interceptor) {
+    //获取signature注解中的对应的参数
     Map<Class<?>, Set<Method>> signatureMap = getSignatureMap(interceptor);
     Class<?> type = target.getClass();
+    //获取需要代理对象的接口
     Class<?>[] interfaces = getAllInterfaces(type, signatureMap);
     if (interfaces.length > 0) {
+      //生成代理对象
       return Proxy.newProxyInstance(
           type.getClassLoader(),
           interfaces,

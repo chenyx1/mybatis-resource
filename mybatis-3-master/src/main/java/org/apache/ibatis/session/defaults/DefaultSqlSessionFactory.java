@@ -110,6 +110,7 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
       tx = transactionFactory.newTransaction(environment.getDataSource(), level, autoCommit);
       //根据执行器类型，获取执行器，采用java bean方式
       // 默认是SimpleExecutor，并且为执行器添加拦截器
+      //通过动态代理添加插件增强，返回对应的executor代理
       final Executor executor = configuration.newExecutor(tx, execType);
       //创建sqlSession
       return new DefaultSqlSession(configuration, executor, autoCommit);

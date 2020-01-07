@@ -64,7 +64,7 @@ public class SimpleExecutor extends BaseExecutor {
       //获取配置信息
       Configuration configuration = ms.getConfiguration();
       //获取Statement处理器
-      //同时执行拦截器
+      //同时执行拦截器，返回增强拦截器的代理StatementHandler的实例
       StatementHandler handler = configuration.newStatementHandler(wrapper, ms, parameter, rowBounds, resultHandler, boundSql);
       stmt = prepareStatement(handler, ms.getStatementLog());
       return handler.query(stmt, resultHandler);

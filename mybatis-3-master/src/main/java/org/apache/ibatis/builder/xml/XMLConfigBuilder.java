@@ -122,11 +122,7 @@ public class XMLConfigBuilder extends BaseBuilder {
       //解析别名属性 解析别名属性 ，解析优先级：package---> typeAlias
       typeAliasesElement(root.evalNode("typeAliases"));
       //解析插件
-      //解析插件(拦截器)，目前mybatis默认的interceptor如下：
-      //Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
-      //ParameterHandler (getParameterObject, setParameters)
-      // ResultSetHandler (handleResultSets, handleOutputParameters)
-      //StatementHandler (prepare, parameterize, batch, update, query)
+      //解析插件(拦截器)
       pluginElement(root.evalNode("plugins"));
       //解析对象工厂（objectFactory）
       objectFactoryElement(root.evalNode("objectFactory"));
@@ -238,10 +234,6 @@ public class XMLConfigBuilder extends BaseBuilder {
 
   /**
    * @desc 解析插件(拦截器)，目前mybatis默认的interceptor如下：
-   *    Executor (update, query, flushStatements, commit, rollback, getTransaction, close, isClosed)
-   *    ParameterHandler (getParameterObject, setParameters)
-   *    ResultSetHandler (handleResultSets, handleOutputParameters)
-   *    StatementHandler (prepare, parameterize, batch, update, query)
    * @date 2019-01-05
    * */
   private void pluginElement(XNode parent) throws Exception {
@@ -249,8 +241,10 @@ public class XMLConfigBuilder extends BaseBuilder {
       for (XNode child : parent.getChildren()) {
         String interceptor = child.getStringAttribute("interceptor");
         Properties properties = child.getChildrenAsProperties();
+        //通过反射实例化插件
         Interceptor interceptorInstance = (Interceptor) resolveClass(interceptor).getDeclaredConstructor().newInstance();
         interceptorInstance.setProperties(properties);
+        //将插件添加到拦截器链中
         configuration.addInterceptor(interceptorInstance);
       }
     }
